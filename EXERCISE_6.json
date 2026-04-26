@@ -1,0 +1,418 @@
+[
+    {
+        "id": "551003c1f20f92da",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "96e2556d10ccbbed",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "host.docker.internal",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "eb0b415587353b3d",
+        "type": "mongodb4-client",
+        "name": "MongoDB Docker",
+        "protocol": "mongodb",
+        "hostname": "",
+        "port": "",
+        "dbName": "smart_campus",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "mongodb://host.docker.internal:27017/smart_campus?directConnection=true",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-advanced"
+    },
+    {
+        "id": "28ea2983cfe2809c",
+        "type": "http in",
+        "z": "551003c1f20f92da",
+        "name": "Telemetry",
+        "url": "/api/sensor",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [
+                "e0590edbbe23a082"
+            ]
+        ]
+    },
+    {
+        "id": "78c447f04518d3dc",
+        "type": "http response",
+        "z": "551003c1f20f92da",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {},
+        "x": 640,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e0590edbbe23a082",
+        "type": "mongodb4",
+        "z": "551003c1f20f92da",
+        "clientNode": "eb0b415587353b3d",
+        "mode": "collection",
+        "collection": "sensor_data",
+        "operation": "insertOne",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "78c447f04518d3dc"
+            ]
+        ]
+    },
+    {
+        "id": "98b767d8a76bb370",
+        "type": "http in",
+        "z": "551003c1f20f92da",
+        "name": "",
+        "url": "/api/telemetry",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "c448894947286a1a"
+            ]
+        ]
+    },
+    {
+        "id": "c448894947286a1a",
+        "type": "function",
+        "z": "551003c1f20f92da",
+        "name": "function 1",
+        "func": "msg.payload = [{}]; \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 260,
+        "wires": [
+            [
+                "90e2689beb31ff99"
+            ]
+        ]
+    },
+    {
+        "id": "90e2689beb31ff99",
+        "type": "mongodb4",
+        "z": "551003c1f20f92da",
+        "clientNode": "eb0b415587353b3d",
+        "mode": "collection",
+        "collection": "sensor_data",
+        "operation": "find",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 630,
+        "y": 260,
+        "wires": [
+            [
+                "438fa3ee3e95c2ff"
+            ]
+        ]
+    },
+    {
+        "id": "438fa3ee3e95c2ff",
+        "type": "http response",
+        "z": "551003c1f20f92da",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {},
+        "x": 880,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "0e9dd73a4f01fe89",
+        "type": "comment",
+        "z": "551003c1f20f92da",
+        "name": "EXERCISE 6",
+        "info": "",
+        "x": 110,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9296ccfd23131174",
+        "type": "http in",
+        "z": "551003c1f20f92da",
+        "name": "",
+        "url": "/api/sensor",
+        "method": "put",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "b26739eeee1a2d2c"
+            ]
+        ]
+    },
+    {
+        "id": "b26739eeee1a2d2c",
+        "type": "function",
+        "z": "551003c1f20f92da",
+        "name": "function 2",
+        "func": "//const device = \"ESP01\";\n//const status = \"inactive\";\nlet device = msg.payload.device_id;\nlet status = msg.payload.status;\nmsg.payload = [\n    { \"device_id\": device },\n    { \"$set\": { \"status\": status } }\n];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "e195adc23bfab168"
+            ]
+        ]
+    },
+    {
+        "id": "22162af2148be583",
+        "type": "http response",
+        "z": "551003c1f20f92da",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {},
+        "x": 880,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "e195adc23bfab168",
+        "type": "mongodb4",
+        "z": "551003c1f20f92da",
+        "clientNode": "eb0b415587353b3d",
+        "mode": "collection",
+        "collection": "sensor_data",
+        "operation": "updateOne",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 650,
+        "y": 360,
+        "wires": [
+            [
+                "22162af2148be583"
+            ]
+        ]
+    },
+    {
+        "id": "f23667dee3f4dad0",
+        "type": "http in",
+        "z": "551003c1f20f92da",
+        "name": "",
+        "url": "/api/sensor",
+        "method": "delete",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "93d868a47d889025"
+            ]
+        ]
+    },
+    {
+        "id": "55331aae2aa65289",
+        "type": "mongodb4",
+        "z": "551003c1f20f92da",
+        "clientNode": "eb0b415587353b3d",
+        "mode": "collection",
+        "collection": "sensor_data",
+        "operation": "deleteMany",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 650,
+        "y": 460,
+        "wires": [
+            [
+                "8157d04e49d42a7d"
+            ]
+        ]
+    },
+    {
+        "id": "93d868a47d889025",
+        "type": "function",
+        "z": "551003c1f20f92da",
+        "name": "function 3",
+        "func": "//msg.payload = [{\"status\": \"error\"}]\nlet data = msg.payload;\nmsg.payload = [data];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "55331aae2aa65289"
+            ]
+        ]
+    },
+    {
+        "id": "8157d04e49d42a7d",
+        "type": "http response",
+        "z": "551003c1f20f92da",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {},
+        "x": 880,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "fb238bc70fbad279",
+        "type": "http in",
+        "z": "551003c1f20f92da",
+        "name": "",
+        "url": "/api/sensor/:id",
+        "method": "put",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 660,
+        "wires": [
+            [
+                "5c598718b50e6c5c"
+            ]
+        ]
+    },
+    {
+        "id": "5c598718b50e6c5c",
+        "type": "function",
+        "z": "551003c1f20f92da",
+        "name": "function 4",
+        "func": "let device = msg.req.params.id;\nlet data = msg.payload;\nif (device===\"all\") {\n    msg.payload = [\n        {},\n        { \"$set\": data }\n    ];\n} else {\n    msg.payload = [\n        { \"device_id\": device },\n        { \"$set\": data }\n    ];\n}\n/*msg.payload = [\n    { \"device_id\": device },\n    { \"$set\":  data }\n];*/\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 660,
+        "wires": [
+            [
+                "73950601a8dc5e69"
+            ]
+        ]
+    },
+    {
+        "id": "a3d2a76e78f4c4e4",
+        "type": "http response",
+        "z": "551003c1f20f92da",
+        "name": "Response",
+        "statusCode": "200",
+        "headers": {},
+        "x": 880,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "73950601a8dc5e69",
+        "type": "mongodb4",
+        "z": "551003c1f20f92da",
+        "clientNode": "eb0b415587353b3d",
+        "mode": "collection",
+        "collection": "sensor_data",
+        "operation": "updateMany",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 650,
+        "y": 660,
+        "wires": [
+            [
+                "a3d2a76e78f4c4e4"
+            ]
+        ]
+    },
+    {
+        "id": "f663289bcccf8a17",
+        "type": "comment",
+        "z": "551003c1f20f92da",
+        "name": "EXTRA",
+        "info": "",
+        "x": 90,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "228b409c69db7208",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-mongodb4": "3.4.0"
+        }
+    }
+]
