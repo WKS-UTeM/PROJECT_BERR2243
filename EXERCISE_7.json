@@ -806,7 +806,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 100,
-        "y": 1420,
+        "y": 1460,
         "wires": [
             [
                 "6b48ec1039e703fc",
@@ -847,7 +847,7 @@
         "handleDocId": false,
         "name": "",
         "x": 630,
-        "y": 1420,
+        "y": 1460,
         "wires": [
             []
         ]
@@ -868,26 +868,8 @@
         "y": 1520,
         "wires": [
             [
-                "ebe7009d59478b4a"
+                "453ea4b4330b28bf"
             ]
-        ]
-    },
-    {
-        "id": "ebe7009d59478b4a",
-        "type": "mongodb4",
-        "z": "551003c1f20f92da",
-        "clientNode": "eb0b415587353b3d",
-        "mode": "collection",
-        "collection": "devices_collection",
-        "operation": "updateOne",
-        "output": "toArray",
-        "maxTimeMS": "0",
-        "handleDocId": false,
-        "name": "",
-        "x": 630,
-        "y": 1520,
-        "wires": [
-            []
         ]
     },
     {
@@ -1043,7 +1025,7 @@
         "wires": []
     },
     {
-        "id": "8fb3437a980f82b6",
+        "id": "0ec40cdb2b71e209",
         "type": "global-config",
         "env": [],
         "modules": {
